@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Question Answering with Voice Input</title>
+</head>
+<body>
+    <h1>Enter your prompt:</h1>
+    <textarea id="prompt" name="prompt" rows="4" cols="50"></textarea>
+    <br>
+    <input type="checkbox" id="voiceInputCheckbox">
+    <label for="voiceInputCheckbox">Voice Input</label>
+
+    <form id="pdfForm" action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="pdf" accept="application/pdf">
+        <input type="text" id="questionInput" name="question" placeholder="Enter your question">
+        <input type="submit" value="Submit" onclick="refreshQuestionField()">
+    </form>
+
+    <script>
+        document.getElementById('voiceInputCheckbox').addEventListener('change', function() {
+            if (this.checked) {
+                startVoiceInput();
+            } else {
+                stopVoiceInput();
+            }
+        });
+
+        function startVoiceInput() {
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.start();
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                const questionInput = document.getElementById('questionInput');
+                questionInput.value += transcript; // Append to existing text
+            }
+        }
+
+        function stopVoiceInput() {
+            // Stop voice input if necessary
+        }
+
+        function refreshQuestionField() {
+            const questionInput = document.getElementById('questionInput');
+            questionInput.value = ''; // Clear the text field content
+        }
+    </script>
+</body>
+</html>
