@@ -4,19 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF Question Answering with Voice Input</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        input[type="file"], input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #555;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Enter your prompt:</h1>
-    <textarea id="prompt" name="prompt" rows="4" cols="50"></textarea>
-    <br>
-    <input type="checkbox" id="voiceInputCheckbox">
-    <label for="voiceInputCheckbox">Voice Input</label>
+    <div class="container">
+        <h1>PDF Question Answering</h1>
 
-    <form id="pdfForm" action="/" method="post" enctype="multipart/form-data">
-        <input type="file" name="pdf" accept="application/pdf">
-        <input type="text" id="questionInput" name="question" placeholder="Enter your question">
-        <input type="submit" value="Submit" onclick="refreshQuestionField()">
-    </form>
+        <form id="pdfForm" action="/" method="post" enctype="multipart/form-data">
+            <label for="pdf">Upload PDF file:</label>
+            <input type="file" name="pdf" accept="application/pdf">
+
+            <label for="question">Enter your question:</label>
+            <input type="text" id="questionInput" name="question" placeholder="Type your question here">
+
+            <input type="submit" value="Submit" onclick="refreshQuestionField()">
+
+            <div>
+                <input type="checkbox" id="voiceInputCheckbox">
+                <label for="voiceInputCheckbox">Use Voice Input</label>
+            </div>
+        </form>
+    </div>
 
     <script>
         document.getElementById('voiceInputCheckbox').addEventListener('change', function() {
